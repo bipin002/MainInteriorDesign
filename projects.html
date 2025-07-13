@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Home - Interior Website</title>
+</head>
+
+<body>
+      <div id="header"></div>
+  <!-- Hero -->
+<!-- Hero -->
+<section class="project-hero d-flex align-items-center text-white">
+  
+</section>
+
+<!-- Main Project Detail -->
+
+<!-- ✅ Universal Project Container -->
+<div id="projects-container"></div>
+
+
+  <div id="footer"></div>
+     <div id="layout-scripts"></div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="assets/js/script.js"></script>
+<script src="assets/js/project-detail.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const params = new URLSearchParams(window.location.search);
+  const projectId = params.get("project");
+  const container = document.getElementById("projects-container");
+
+  if (!container) return;
+
+  // Filter projects to display
+  const projectsToDisplay = projectId && projectId !== "All"
+    ? projectData.filter(p => p.id === projectId)
+    : projectData;
+
+  // if (projectsToDisplay.length === 0) {
+  //   container.innerHTML = "<p class='text-center'>No project found.</p>";
+  //   return;
+  // }
+
+  // Render each project
+  
+  projectsToDisplay.forEach(project => {
+    
+    const projectHTML = document.createElement("div");
+
+    projectHTML.innerHTML = `
+      <section class="main-project-detail py-5">
+        <div class="container">
+          <div class="text-center">
+          <h2 class="project-title display-5 fw-bold">${project.title}</h2>
+           </div>
+          <div class="row align-items-center g-4">
+            <div class="col-md-6">
+              <img src="${project.mainImage}" class="main-img img-fluid rounded shadow" alt="${project.title}">
+            </div>
+            <div class="col-md-6">
+              <p class="project-description text-muted">${project.description}</p>
+              <ul class="list-unstyled mt-4">
+                <li><strong>Client:</strong> <span class="client-name">${project.client}</span></li>
+                <li><strong>Location:</strong> <span class="project-location">${project.location}</span></li>
+                <li><strong>Project Size:</strong> <span class="project-size">${project.size}</span></li>
+                <li><strong>Duration:</strong> <span class="project-duration">${project.duration}</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="project-description py-3">
+        <div class="container">
+          <h4 class="fw-bold mb-3 text-center">Project Overview</h4>
+          <p class="project-detailed-description text-muted fs-5">${project.longDescription}</p>
+        </div>
+      </section>
+
+      <section class="project-gallery py-4 bg-light">
+        <div class="container">
+          <h4 class="text-center fw-bold mb-4">More Images</h4>
+          <div class="row g-4 gallery-container">
+            ${project.images.map(img => `
+              <div class="col-md-4">
+                <img src="${img}" class="img-fluid rounded shadow-sm mb-3" alt="">
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </section>
+    `;
+
+    container.appendChild(projectHTML);
+  });
+});
+
+</script>

@@ -1,0 +1,1698 @@
+/* ====================================== */
+/* MASTER ROOT VARIABLES         */
+/* ====================================== */
+:root {
+  --primary-color: #ebe1db;
+  --secondary-color: #f4f4f4;
+  --accent-color: #d49a6a;
+  --text-color: #333333;
+  --dark-color: #0f0f0f; /* Added for scrolled navbar */
+
+  --font-main: 'Poppins', sans-serif;
+  --font-size-base: 16px;
+  --font-size-heading: 28px;
+  --font-size-small: 14px;
+
+  /* Animation Variables - UNTOUCHED */
+  --transition-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --transition-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* ====================================== */
+/* BASE STYLE               */
+/* ====================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  font-size: var(--font-size-base);
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  overflow-x: hidden;
+  /* Existing: animation: pageLoad 0.8s ease-out; - UNTOUCHED */
+}
+
+/* Smooth scrolling - UNTOUCHED */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Page load animation - UNTOUCHED */
+@keyframes pageLoad {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+a {
+  text-decoration: none;
+  /* Existing: transition: all 0.3s var(--transition-smooth); - ENHANCED */
+  transition: all 0.3s var(--transition-smooth); /* Consistent use of variable */
+}
+
+#header,
+#footer {
+  /* Existing: transition: opacity 0.6s var(--transition-smooth), transform 0.6s var(--transition-smooth); - UNTOUCHED */
+  transition: opacity 0.6s var(--transition-smooth), transform 0.6s var(--transition-smooth);
+}
+#header {
+  min-height: 90px;
+}
+
+/* --- NEW ADDITION --- */
+/* ====================================== */
+/* NEW: FADE-IN ANIMATION FOR BLOCKS    */
+/* ====================================== */
+/*
+   Apply this class to any card or image block (e.g., .project-tile, .curved-card,
+   .testimonial-card, .about-values .value-card, .team-section .team-member,
+   .project-card, .service-card) that you want to fade in as it enters the viewport.
+
+   This will require JavaScript to add the 'is-visible' class when the element
+   is in the viewport (e.g., using an IntersectionObserver).
+*/
+.fade-in-block {
+    opacity: 0;
+    transform: translateY(20px); /* Starts slightly below its final position */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Slower, smoother fade and slide */
+}
+
+.fade-in-block.is-visible {
+    opacity: 1;
+    transform: translateY(0); /* Moves to its final position */
+}
+
+/* Optional: Stagger effect for multiple blocks appearing in a row */
+/* Apply these if you have multiple .fade-in-block elements side-by-side */
+.fade-in-block:nth-child(2) { transition-delay: 0.1s; }
+.fade-in-block:nth-child(3) { transition-delay: 0.2s; }
+.fade-in-block:nth-child(4) { transition-delay: 0.3s; }
+.fade-in-block:nth-child(5) { transition-delay: 0.4s; }
+/* Add more :nth-child rules as needed for your layout */
+
+/* --- END NEW ADDITION --- */
+
+
+/* ====================================== */
+/* MODERN ANIMATION KEYFRAMES - UNTOUCHED */
+/* ====================================== */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes morphing {
+  0%, 100% {
+    border-radius: 50% 50% 50% 50%;
+  }
+  25% {
+    border-radius: 60% 40% 60% 40%;
+  }
+  50% {
+    border-radius: 40% 60% 40% 60%;
+  }
+  75% {
+    border-radius: 50% 50% 40% 60%;
+  }
+}
+
+/* ====================================== */
+/* MODERN NAVBAR STYLE          */
+/* ====================================== */
+.navbar {
+  background-color: white;
+  box-shadow: none !important;
+  /* Existing: transition: all 0.4s var(--transition-smooth); - UNTOUCHED */
+  backdrop-filter: blur(10px); /* UNTOUCHED */
+  position: fixed; /* Changed to fixed for typical sticky behavior */
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.navbar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  opacity: 0;
+  /* Existing: transition: opacity 0.3s ease; - ENHANCED */
+  transition: opacity 0.3s var(--transition-smooth);
+  z-index: -1;
+}
+
+.navbar.scrolled {
+  background: rgba(15, 15, 15, 0.95);
+  padding: 0.8rem 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
+}
+
+.navbar.scrolled::before {
+  opacity: 1;
+}
+
+/* Brand Animation */
+.navbar-brand {
+  font-size: 1.8rem;
+  color: #9c9ca3;
+  font-weight: 300;
+  letter-spacing: 1px;
+  display: inline-block;
+  position: relative;
+  padding-left: 70px;
+  /* Existing: transition: all 0.3s var(--transition-elastic); - UNTOUCHED */
+}
+
+.navbar-nav {
+  gap: 50px;
+}
+
+/* Existing .animate-brand - UNTOUCHED */
+.animate-brand {
+  animation: fadeInDown 1s var(--transition-smooth);
+}
+
+.navbar-brand:hover {
+  color: #e67e22;
+  /* Existing: transform: scale(1.05); - UNTOUCHED */
+}
+
+/* Logo Animation */
+.logo-img {
+  width: 150px;
+  height: 106px;
+  object-fit: contain; /* Changed from cover to contain for better logo scaling */
+  /* Existing: transition: all 0.4s var(--transition-bounce); - UNTOUCHED */
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+}
+
+.logo-img:hover {
+  /* Existing: transform: scale(1.1) rotate(5deg); - UNTOUCHED */
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.2));
+}
+
+/* Nav Links Animation */
+.navbar-nav .nav-link {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+  color: #9c9ca3;
+  padding: 0.8rem 1.5rem;
+  position: relative;
+  /* Existing: transition: all 0.3s var(--transition-smooth); - UNTOUCHED */
+  overflow: hidden;
+}
+
+.navbar-nav .nav-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(230, 126, 34, 0.1), transparent);
+  /* Existing: transition: left 0.5s ease; - ENHANCED */
+  transition: left 0.5s var(--transition-smooth);
+}
+
+.navbar-nav .nav-link:hover::before {
+  left: 100%;
+}
+
+/* Existing .animate-link and delays - UNTOUCHED */
+.animate-link {
+  opacity: 0;
+  animation: slideInLeft 0.6s var(--transition-smooth) forwards;
+}
+.navbar-nav .nav-link:nth-child(1) { animation-delay: 0.1s; }
+.navbar-nav .nav-link:nth-child(2) { animation-delay: 0.2s; }
+.navbar-nav .nav-link:nth-child(3) { animation-delay: 0.3s; }
+.navbar-nav .nav-link:nth-child(4) { animation-delay: 0.4s; }
+
+.navbar-nav .nav-link:hover {
+  color: #e67e22;
+  /* Existing: transform: translateY(-3px); - UNTOUCHED */
+}
+
+.navbar-nav .nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background: linear-gradient(90deg, #e67e22, #d49a6a);
+  /* Existing: transition: all 0.4s var(--transition-elastic); - UNTOUCHED */
+}
+
+.navbar-nav .nav-link:hover::after {
+  width: 80%;
+  left: 10%;
+}
+
+/* Toggler Animation */
+.navbar-toggler {
+  border: none;
+  /* Existing: transition: all 0.4s var(--transition-bounce); - UNTOUCHED */
+  position: relative;
+  outline: none !important; /* Remove default focus outline */
+  box-shadow: none !important; /* Remove default focus shadow */
+  padding: 0.25rem 0.75rem; /* Standard Bootstrap padding */
+}
+
+.navbar-toggler:hover {
+  /* Existing: transform: rotate(180deg) scale(1.1); - UNTOUCHED */
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(44, 62, 80, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  /* Existing: transition: all 0.3s ease; - ENHANCED */
+  transition: all 0.3s var(--transition-smooth);
+}
+
+/* Mobile Menu Animation - UNTOUCHED */
+.navbar-collapse {
+  transition: all 0.5s var(--transition-smooth);
+}
+
+.navbar .nav-link,
+.navbar .navbar-brand,
+.navbar .site-name {
+  font-weight: bold;
+}
+
+/* ====================================== */
+/* CAROUSEL INDICATORS - CONSOLIDATED AND REFINED */
+/* ====================================== */
+.carousel-indicators {
+  position: absolute;
+  bottom: 30px; /* Adjusted for consistent visibility */
+  left: 50%;
+  transform: translateX(-50%);
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  z-index: 2;
+  /* Existing: transition: all 0.3s var(--transition-smooth); - UNTOUCHED */
+}
+
+.carousel-indicators [data-bs-target] {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #fff;
+  opacity: 0.6;
+  /* Existing: transition: all 0.3s var(--transition-smooth); - UNTOUCHED */
+  transform: scale(1);
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease; /* Enhanced for interactive dots */
+}
+
+.carousel-indicators .active {
+  /* Existing: transform: scale(1.3); - UNTOUCHED */
+  opacity: 1;
+  background-color: #e67e22;
+  transform: scale(1.3); /* Highlight active dot */
+}
+
+
+/* Offcanvas Styles */
+.offcanvas.custom-offcanvas {
+  width: 260px;
+  background-color: #fff;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+  /* Existing: animation: slideInRight 0.4s var(--transition-smooth); - UNTOUCHED */
+}
+
+.offcanvas-header {
+  border-bottom: 1px solid #ddd;
+  padding: 1rem;
+  /* Existing: animation: fadeInDown 0.5s var(--transition-smooth); - UNTOUCHED */
+}
+
+.offcanvas-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1d294d;
+}
+
+.offcanvas-body {
+  padding: 1rem 1.5rem;
+}
+
+#offcanvasNavbarLabel {
+  color: #416def;
+}
+
+.offcanvas .nav-link {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #416def;
+  margin-bottom: 1rem;
+  text-align: left;
+  /* Existing: transition: all 0.3s var(--transition-smooth); - UNTOUCHED */
+  /* Existing: animation: fadeInUp 0.5s var(--transition-smooth) forwards; - UNTOUCHED */
+  /* Existing: animation-delay: calc(var(--i) * 0.1s); - UNTOUCHED */
+}
+
+.offcanvas .nav-link:hover {
+  color: #e67e22;
+  /* Existing: transform: translateX(10px); - UNTOUCHED */
+}
+
+/* ====================================== */
+/* TYPOGRAPHY STYLES           */
+/* ====================================== */
+h1, h2, h3 {
+  color: var(--text-color); /* Changed for better contrast on light backgrounds */
+  font-weight: 600;
+  margin-bottom: 1rem;
+  /* Existing: animation: fadeInUp 0.6s var(--transition-smooth); - UNTOUCHED */
+}
+
+.section-title {
+  font-size: 26px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--accent-color);
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  /* Existing: animation: fadeInUp 0.8s var(--transition-smooth); - UNTOUCHED */
+  padding-bottom: 5px; /* Added padding for the underline */
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #e67e22, transparent);
+  /* Existing: animation: shimmer 2s infinite; - UNTOUCHED */
+}
+
+/* ====================================== */
+/* HERO SECTION                 */
+/* ====================================== */
+#heroCarousel {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-slide {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* filter: blur(1px); - REMOVED, as blur is often handled by ::before overlay */
+  z-index: 1;
+  /* Existing: animation: scaleIn 2s var(--transition-smooth); - UNTOUCHED */
+}
+
+.hero-slide::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+  /* Existing: animation: fadeInUp 1s var(--transition-smooth); - UNTOUCHED */
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 20%;
+  left: 10%;
+  z-index: 2;
+  text-align: left;
+  /* Existing: animation: slideInLeft 1.2s var(--transition-smooth); - UNTOUCHED */
+}
+
+.carousel-caption h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+  /* Existing: animation: fadeInUp 1s var(--transition-smooth) 0.3s both; - UNTOUCHED */
+}
+
+.carousel-caption p {
+  font-size: 1.2rem;
+  color: #fff;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+  /* Existing: animation: fadeInUp 1s var(--transition-smooth) 0.6s both; - UNTOUCHED */
+}
+
+.carousel-caption .btn {
+  font-size: 1rem;
+  font-weight: 500;
+  /* Existing: animation: fadeInUp 1s var(--transition-smooth) 0.9s both; - UNTOUCHED */
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-caption .btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  /* Existing: transition: left 0.5s ease; - ENHANCED */
+  transition: left 0.5s var(--transition-smooth);
+}
+
+.carousel-caption .btn:hover::before {
+  left: 100%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  padding: 10px;
+  /* Existing: transition: all 0.3s var(--transition-smooth); - UNTOUCHED */
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+  /* Existing: transform: scale(1.1); - UNTOUCHED */
+}
+
+/* ====================================== */
+/* ABOUT SECTION              */
+/* ====================================== */
+.about-section {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  padding: 80px 40px;
+  position: relative;
+  color: #fff;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.about-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background-image: linear-gradient(rgb(255 255 255 / 60%), rgb(207 200 200 / 50%)),
+                      url('../images/armchair-living-room-with-copy-space.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(6px);
+  z-index: -1;
+  /* Existing: animation: scaleIn 2s var(--transition-smooth); - UNTOUCHED */
+}
+
+.about-section .container {
+  /* Existing: animation: fadeInUp 1s var(--transition-smooth) 0.3s both; - UNTOUCHED */
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #2c3e50;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #e67e22, #d49a6a);
+  /* Existing: animation: expandWidth 1.5s var(--transition-smooth) 0.8s both; - UNTOUCHED */
+}
+
+/* Existing @keyframes expandWidth - UNTOUCHED */
+@keyframes expandWidth {
+  to {
+    width: 100%;
+  }
+}
+
+.section-text {
+  font-size: 1.1rem;
+  color: #000000;
+  line-height: 1.8;
+  /* Existing: animation: fadeInUp 1s var(--transition-smooth) 0.6s both; - UNTOUCHED */
+}
+
+.about-section .btn {
+  font-weight: 500;
+  font-size: 1rem;
+  /* Existing: animation: fadeInUp 1s var(--transition-smooth) 0.9s both; - UNTOUCHED */
+}
+
+/* ====================================== */
+/* PROJECT SECTION              */
+/* ====================================== */
+.project-tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  /* Existing: box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); - ENHANCED */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Softer initial shadow */
+  /* Existing: transition: all 0.4s var(--transition-smooth); - UNTOUCHED */
+  /* Existing: animation: fadeInUp 0.6s var(--transition-smooth); - UNTOUCHED */
+}
+
+.project-tile:hover {
+  /* Existing: transform: translateY(-15px) scale(1.02); - UNTOUCHED */
+  /* Existing: box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); - UNTOUCHED */
+}
+
+.project-tile img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  /* Existing: transition: all 0.6s var(--transition-smooth); - UNTOUCHED */
+}
+
+.project-tile:hover img {
+  /* Existing: transform: scale(1.1) rotate(2deg); - UNTOUCHED */
+}
+
+.project-tile .overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  width: 100%;
+  padding: 15px;
+  color: white;
+  transform: translateY(100%);
+  /* Existing: transition: all 0.4s var(--transition-elastic); - UNTOUCHED */
+}
+
+.project-tile:hover .overlay {
+  transform: translateY(0);
+}
+
+/* ====================================== */
+/* UPCOMING PROJECTS            */
+/* ====================================== */
+#curved-carousel-section {
+  background-color: #fdfdfd;
+  padding: 60px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.curved-carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.curved-carousel-track {
+  display: flex;
+  gap: 20px;
+  overflow-x: hidden;
+  padding: 0 100px;
+  scroll-behavior: smooth;
+  perspective: 1000px;
+  align-items: center;
+  overflow-y: hidden;
+}
+
+.curved-card {
+  flex: 0 0 320px;
+  height: 420px;
+  overflow: hidden;
+  /* Existing: transition: all 0.6s var(--transition-elastic); - UNTOUCHED */
+  opacity: 0.5;
+  transform: scale(0.9);
+  border-radius: 15px;
+  /* Existing: box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); - ENHANCED */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Softer initial shadow */
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  /* Existing: animation: fadeInUp 0.8s var(--transition-smooth); - UNTOUCHED */
+}
+
+.curved-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(212, 154, 106, 0.1), rgba(235, 225, 219, 0.1));
+  opacity: 0;
+  /* Existing: transition: opacity 0.4s ease; - ENHANCED */
+  transition: opacity 0.4s var(--transition-smooth);
+  z-index: 1;
+}
+
+.curved-card:hover::before {
+  opacity: 1;
+}
+
+.curved-card img {
+  width: 100%;
+  height: 75%;
+  object-fit: cover;
+  /* Existing: transition: all 0.6s var(--transition-smooth); - UNTOUCHED */
+}
+
+.curved-card:hover img {
+  /* Existing: transform: scale(1.05); - UNTOUCHED */
+}
+
+.curved-card h5 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.curved-card p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.curved-card.left-rotate {
+  transform: scale(0.9) perspective(800px) rotateY(10deg);
+  opacity: 0.5;
+}
+
+.curved-card.right-rotate {
+  transform: scale(0.9) perspective(800px) rotateY(-10deg);
+  opacity: 0.5;
+}
+
+.curved-card.active {
+  /* Existing: transform: scale(1.05); - UNTOUCHED */
+  opacity: 1;
+  z-index: 2;
+  /* Existing: animation: pulse 2s infinite; - UNTOUCHED */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); /* Enhanced shadow for active card */
+}
+
+.curved-carousel-dots {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.curved-carousel-dots .dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 0 6px;
+  background-color: #bbb;
+  border-radius: 50%;
+  /* Existing: transition: all 0.3s var(--transition-bounce); - UNTOUCHED */
+  cursor: pointer;
+}
+
+.curved-carousel-dots .dot:hover {
+  /* Existing: transform: scale(1.2); - UNTOUCHED */
+}
+
+.curved-carousel-dots .dot.active {
+  background-color: #e67e22;
+  /* Existing: transform: scale(1.3); - UNTOUCHED */
+}
+
+/* ====================================== */
+/* COUNTER SECTION              */
+/* ====================================== */
+#counter-section {
+  background-color: #ffffff;
+  padding: 60px 0;
+}
+
+#counter-section .container {
+  background-color: #e9d29c;
+  padding: 3rem 2rem;
+  border-radius: 20px;
+  /* Existing: animation: fadeInUp 1s var(--transition-smooth); - UNTOUCHED */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Added soft shadow */
+}
+
+.counter {
+  font-size: 3rem;
+  color: #1d294d;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  /* Existing: transition: all 0.3s var(--transition-smooth); - UNTOUCHED */
+  /* Existing: animation: scaleIn 1s var(--transition-bounce) 0.5s both; - UNTOUCHED */
+}
+
+.counter:hover {
+  /* Existing: transform: scale(1.1); - UNTOUCHED */
+  color: #e67e22;
+}
+
+.counter-label {
+  font-size: 1rem;
+  color: #555;
+  letter-spacing: 0.5px;
+  /* Existing: animation: fadeInUp 1s var(--transition-smooth) 0.8s both; - UNTOUCHED */
+}
+
+/* ====================================== */
+/* TESTIMONIAL SECTION          */
+/* ====================================== */
+#testimonial-section {
+  background-color: #dddcdc;
+  padding: 60px 0;
+}
+
+.testimonial-card {
+  max-width: 600px;
+  margin: 0 auto;
+  /* Existing: animation: fadeInUp 1s var(--transition-smooth); - UNTOUCHED */
+  background-color: #fff; /* Added white background */
+  border-radius: 12px; /* Added rounded corners */
+  padding: 30px; /* Added padding */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Added soft shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added transitions for hover */
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px); /* Lift on hover */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+}
+
+.testimonial-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent-color); /* Used accent color */
+  /* Existing: transition: all 0.4s var(--transition-bounce); - UNTOUCHED */
+  /* Existing: animation: morphing 4s infinite ease-in-out; - UNTOUCHED */
+  box-shadow: 0 0 0 5px rgba(212, 154, 106, 0.2); /* Subtle ring effect */
+}
+
+.testimonial-img:hover {
+  /* Existing: transform: scale(1.1); - UNTOUCHED */
+  border-color: #e67e22;
+}
+
+.testimonial-text {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #444;
+  line-height: 1.6;
+  /* Existing: animation: fadeInUp 1s var(--transition-smooth) 0.3s both; - UNTOUCHED */
+  margin-top: 15px; /* Added space between image/name and text */
+}
+
+/* ====================================== */
+/* ABOUT PAGE               */
+/* ====================================== */
+.about-hero {
+  height: 60vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+              url('../images/charles-forerunner-3fPXt37X6UQ-unsplash.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* Existing: animation: scaleIn 1.5s var(--transition-smooth); - UNTOUCHED */
+  position: relative; /* For pseudo-element background */
+  overflow: hidden; /* Hide overflow from background scale */
+}
+
+.about-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit; /* Inherit the background from .about-hero */
+    filter: blur(5px); /* Apply a blur to the background copy */
+    transform: scale(1.1); /* Zoom slightly to fill blurred edges */
+    animation: zoomOut 20s ease-in-out infinite alternate; /* Gentle zoom for parallax */
+    z-index: -1;
+}
+
+.about-hero h1,
+.about-hero p {
+  color: #fff;
+  margin: 0;
+  /* Existing: animation: fadeInUp 1s var(--transition-smooth) 0.5s both; - UNTOUCHED */
+}
+
+.about-values .value-card {
+  /* Existing: transition: all 0.4s var(--transition-elastic); - UNTOUCHED */
+  /* Existing: animation: fadeInUp 0.8s var(--transition-smooth); - UNTOUCHED */
+  border-radius: 10px; /* Added rounded corners */
+  overflow: hidden; /* Hide overflow for rounded corners */
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Added initial subtle shadow */
+  transition: all 0.3s ease-in-out, box-shadow 0.3s ease; /* Ensure box-shadow transition */
+}
+
+.about-values .value-card:hover {
+  /* Existing: transform: translateY(-15px) scale(1.03); - UNTOUCHED */
+  /* Existing: box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); - UNTOUCHED */
+}
+
+/* Subtle gradient hover effect for value cards */
+.about-values .value-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--accent-color), rgba(255,255,255,0));
+    opacity: 0;
+    transition: opacity 0.3s var(--transition-smooth); /* Consistent transition */
+    z-index: 1;
+}
+
+.about-values .value-card:hover::before {
+    opacity: 0.1; /* Show subtle gradient on hover */
+}
+
+.about-values .value-card * {
+    position: relative; /* Ensure content is above the pseudo-element */
+    z-index: 2;
+}
+
+.about-content img {
+  border-radius: 12px;
+  /* Existing: transition: all 0.4s var(--transition-smooth); - UNTOUCHED */
+  /* Existing: animation: fadeInUp 1s var(--transition-smooth) 0.3s both; - UNTOUCHED */
+}
+
+.about-content img:hover {
+  /* Existing: transform: scale(1.05); - UNTOUCHED */
+}
+
+/* ====================================== */
+/* TEAM SECTION                 */
+/* ====================================== */
+.team-section {
+    padding: 80px 0; /* Added padding for the section */
+}
+
+.team-member p {
+  margin-bottom: 0;
+}
+
+.team-section .team-member {
+  /* Existing: transition: transform 0.3s ease; - UNTOUCHED */
+  border-radius: 12px; /* Added rounded corners */
+  overflow: hidden; /* For image border-radius */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Added initial subtle shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
+}
+/* Team member hover effect */
+.team-section .team-member:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12); /* More pronounced shadow */
+}
+
+/* Team member image grayscale and hover effect */
+.team-member img {
+    border-radius: 12px 12px 0 0; /* Top rounded corners for image */
+    filter: grayscale(100%);
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.team-member:hover img {
+    filter: grayscale(0%); /* Remove grayscale on hover */
+    transform: scale(1.03); /* Slight zoom on hover */
+}
+
+.team-member-info {
+    padding: 20px;
+    text-align: center;
+}
+
+.team-member-info h5 {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.team-member-info p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* ====================================== */
+/* PROJECT PAGE                 */
+/* ====================================== */
+.project-hero {
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)),
+              url('../images/person-working-wood-working-industry-factory.jpg') center/cover no-repeat;
+  min-height: 300px;
+  color: #fff;
+  padding: 60px 0;
+  /* Existing: animation: scaleIn 1.5s var(--transition-smooth); - UNTOUCHED */
+  position: relative; /* For pseudo-element background */
+  overflow: hidden; /* Hide overflow from background scale */
+}
+
+/* Project hero background animation */
+.project-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    filter: blur(4px);
+    transform: scale(1.05);
+    animation: backgroundPan 25s linear infinite alternate;
+    z-index: -1;
+}
+
+.main-project-detail ul li {
+  margin-bottom: 0.5rem;
+  font-size: 16px;
+  /* Existing: animation: fadeInUp 0.6s var(--transition-smooth); - UNTOUCHED */
+  /* Existing: animation-delay: calc(var(--i) * 0.1s); - UNTOUCHED */
+}
+
+.project-gallery img {
+  /* Existing: transition: all 0.4s var(--transition-smooth); - UNTOUCHED */
+  /* Existing: animation: fadeInUp 0.8s var(--transition-smooth); - UNTOUCHED */
+  border-radius: 8px; /* Added slightly rounded corners */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
+}
+
+/* Project gallery image hover effect */
+.project-gallery img:hover {
+  /* Existing: transform: scale(1.05) rotate(2deg); - UNTOUCHED */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* Added soft shadow on hover */
+  transform: scale(1.05) rotate(2deg);
+}
+
+.project-listing {
+  padding-top: 80px;
+  padding-bottom: 60px;
+}
+
+.project-card {
+  background: #fff;
+  border: 1px solid #eee;
+  /* Existing: transition: all 0.4s var(--transition-elastic); - UNTOUCHED */
+  /* Existing: animation: fadeInUp 0.8s var(--transition-smooth); - UNTOUCHED */
+  border-radius: 12px; /* Added rounded corners */
+  overflow: hidden; /* Hide content overflow for rounded corners */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Ensured transitions */
+}
+
+.project-card:hover {
+  /* Existing: transform: translateY(-10px) scale(1.02); - UNTOUCHED */
+  /* Existing: box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); - UNTOUCHED */
+}
+
+.project-card .card-img-top {
+  height: 280px;
+  object-fit: cover;
+  /* Existing: transition: all 0.4s var(--transition-smooth); - UNTOUCHED */
+}
+
+.project-card:hover .card-img-top {
+  /* Existing: transform: scale(1.05); - UNTOUCHED */
+}
+
+/* ====================================== */
+/* SERVICES PAGE                */
+/* ====================================== */
+.service-hero {
+  background: url('../images/rebecca-chandler-Ew6dcxJr7gg-unsplash.jpg') center center / cover no-repeat;
+  padding: 100px 0;
+  /* Existing: animation: scaleIn 1.5s var(--transition-smooth); - UNTOUCHED */
+  position: relative; /* For pseudo-element background */
+  overflow: hidden; /* Hide overflow from background scale */
+}
+
+/* Service hero background animation */
+.service-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    filter: blur(3px);
+    transform: scale(1.05);
+    animation: zoomOut 25s ease-in-out infinite alternate;
+    z-index: -1;
+}
+
+.service-card {
+  /* Existing: transition: all 0.4s var(--transition-elastic); - UNTOUCHED */
+  /* Existing: animation: fadeInUp 0.8s var(--transition-smooth); - UNTOUCHED */
+  border-radius: 12px; /* Added rounded corners */
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Added initial soft shadow */
+  transition: all 0.3s ease; /* Ensured transition */
+}
+
+.service-card img {
+  filter: grayscale(1);
+  /* Existing: transition: all 0.4s var(--transition-smooth); - UNTOUCHED */
+}
+
+.service-card:hover img {
+  filter: none;
+  /* Existing: transform: scale(1.05); - UNTOUCHED */
+}
+
+.service-card:hover {
+  background-color: #f8f9fa;
+  /* Existing: transform: translateY(-10px) scale(1.03); - UNTOUCHED */
+}
+
+/* ====================================== */
+/* CONTACT PAGE                 */
+/* ====================================== */
+.contact-hero {
+  background: url('../images/brandi-redd-aJTiW00qqtI-unsplash.jpg') center center / cover no-repeat;
+  padding: 100px 0;
+  min-height: 300px;
+  /* Existing: animation: scaleIn 1.5s var(--transition-smooth); - UNTOUCHED */
+  position: relative; /* For pseudo-element background */
+  overflow: hidden; /* Hide overflow from background scale */
+}
+
+/* Contact hero background animation */
+.contact-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    filter: blur(2px);
+    transform: scale(1.03);
+    animation: backgroundPan 20s linear infinite alternate;
+    z-index: -1;
+}
+
+.contact-section {
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+  padding: 60px 0; /* Added padding for the section */
+}
+
+.contact-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(rgb(255 255 255 / 60%), rgb(207 200 200 / 50%)),
+                      url('../images/34781.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; /* Completed the truncated rule */
+  filter: blur(3px);
+  z-index: 1;
+  animation: zoomOut 25s ease-in-out infinite alternate; /* Background animation */
+}
+
+.contact-content {
+  position: relative;
+  z-index: 2; /* Changed from 1 to 2 for better layering */
+  padding: 2rem;
+  backdrop-filter: blur(5px); /* Stronger blur for overlaid content */
+  background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent background for content */
+  border-radius: 12px; /* Added rounded corners */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Added soft shadow */
+  /* Existing: animation: fadeInUp 1s var(--transition-smooth) 0.3s both; - UNTOUCHED */
+}
+
+.contact-section input,
+.contact-section textarea {
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  /* Existing: transition: all 0.3s var(--transition-smooth); - UNTOUCHED */
+  /* Existing: animation: fadeInUp 0.6s var(--transition-smooth); - UNTOUCHED */
+}
+
+.contact-section input:focus,
+.contact-section textarea:focus {
+  /* Existing: transform: scale(1.02); - UNTOUCHED */
+  /* Existing: box-shadow: 0 0 15px rgba(212, 154, 106, 0.3); - UNTOUCHED */
+  border-color: var(--accent-color); /* Used accent color */
+  outline: none; /* Remove default outline */
+}
+
+.contact-section .btn {
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  /* Existing: animation: fadeInUp 0.8s var(--transition-smooth) 0.5s both; - UNTOUCHED */
+}
+
+.contact-section .btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  /* Existing: transition: left 0.5s ease; - ENHANCED */
+  transition: left 0.5s var(--transition-smooth);
+}
+
+.contact-section .btn:hover::before {
+  left: 100%;
+}
+
+.map-responsive iframe {
+  border-radius: 8px;
+  /* Existing: transition: all 0.3s var(--transition-smooth); - UNTOUCHED */
+  /* Existing: animation: fadeInUp 1s var(--transition-smooth) 0.6s both; - UNTOUCHED */
+}
+
+.map-responsive iframe:hover {
+  /* Existing: transform: scale(1.02); - UNTOUCHED */
+}
+
+/* ====================================== */
+/* ENHANCED BUTTONS             */
+/* ====================================== */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.8rem; /* Slightly larger padding for better touch targets */
+  font-weight: 500;
+  border-radius: 50px; /* Changed to pill shape for modern look */
+  /* Existing: transition: all 0.3s var(--transition-smooth); - UNTOUCHED */
+  position: relative;
+  overflow: hidden;
+  /* Existing: transform: translateY(0); - UNTOUCHED */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Added initial subtle shadow */
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  /* Existing: transition: left 0.5s ease; - ENHANCED */
+  transition: left 0.5s var(--transition-smooth);
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+  color: #fff;
+  /* Existing: transform: translateY(-2px) scale(1.05); - UNTOUCHED */
+  /* Existing: box-shadow: 0 8px 20px rgba(212, 154, 106, 0.4); - UNTOUCHED */
+}
+
+.btn-primary:active {
+  /* Existing: transform: translateY(0) scale(0.98); - UNTOUCHED */
+}
+
+/* ====================================== */
+/* FOOTER                  */
+/* ====================================== */
+footer {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  text-align: center;
+  font-size: var(--font-size-small);
+  color: var(--text-color);
+  border-top: 1px solid #e2e2e2;
+  /* Existing: animation: fadeInUp 1s var(--transition-smooth); - UNTOUCHED */
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.05); /* Added subtle top shadow */
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+  /* Existing: animation: shimmer 3s infinite; - UNTOUCHED */
+}
+
+/* ====================================== */
+/* SCROLL ANIMATIONS - UNTOUCHED      */
+/* ====================================== */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s var(--transition-smooth);
+}
+
+.scroll-animate.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-animate.slide-left {
+  transform: translateX(-50px);
+}
+
+.scroll-animate.slide-left.show {
+  transform: translateX(0);
+}
+
+.scroll-animate.slide-right {
+  transform: translateX(50px);
+}
+
+.scroll-animate.slide-right.show {
+  transform: translateX(0);
+}
+
+.scroll-animate.scale-up {
+  transform: scale(0.8);
+}
+
+.scroll-animate.scale-up.show {
+  transform: scale(1);
+}
+
+/* ====================================== */
+/* FLOATING ELEMENTS - UNTOUCHED      */
+/* ====================================== */
+.floating-element {
+  animation: float 3s ease-in-out infinite;
+}
+
+.floating-element:nth-child(2n) {
+  animation-delay: 0.5s;
+}
+
+.floating-element:nth-child(3n) {
+  animation-delay: 1s;
+}
+
+/* ====================================== */
+/* LOADING ANIMATIONS - UNTOUCHED       */
+/* ====================================== */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.pulse-loader {
+  animation: pulse 1.5s infinite;
+}
+
+/* ====================================== */
+/* INTERACTIVE ELEMENTS         */
+/* ====================================== */
+.interactive-card {
+  /* Existing: transition: all 0.3s var(--transition-smooth); - UNTOUCHED */
+  cursor: pointer;
+  border-radius: 12px; /* Added consistent border-radius */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Added initial subtle shadow */
+}
+
+.interactive-card:hover {
+  /* Existing: transform: translateY(-5px) scale(1.02); - UNTOUCHED */
+  /* Existing: box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); - UNTOUCHED */
+}
+
+.interactive-card:active {
+  /* Existing: transform: translateY(-2px) scale(0.98); - UNTOUCHED */
+}
+
+/* ====================================== */
+/* HERO ENHANCEMENTS            */
+/* ====================================== */
+.hero {
+  background: url('../images/hero-bg.jpg') no-repeat center center/cover;
+  padding: 100px 0;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  /* Existing: animation: scaleIn 1.5s var(--transition-smooth); - UNTOUCHED */
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+  z-index: 1;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 2;
+}
+
+.hero h1 {
+  font-size: 48px;
+  font-weight: 700;
+  /* Existing: animation: fadeInUp 1s var(--transition-smooth) 0.5s both; - UNTOUCHED */
+}
+
+.hero p {
+  font-size: 18px;
+  margin-top: 1rem;
+  color: #ddd;
+  /* Existing: animation: fadeInUp 1s var(--transition-smooth) 0.8s both; - UNTOUCHED */
+}
+
+/* ====================================== */
+/* RESPONSIVE ANIMATIONS          */
+/* ====================================== */
+@media (max-width: 991.98px) {
+  .logo-img {
+    width: 100px;
+    height: 70px;
+  }
+
+  .site-name {
+    font-size: 1rem;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-top: 1rem;
+  }
+
+  .navbar-nav .nav-link {
+    /* Existing: animation: fadeInUp 0.5s var(--transition-smooth) forwards; - UNTOUCHED */
+    /* Existing: animation-delay: calc(var(--i) * 0.1s); - UNTOUCHED */
+  }
+
+  .navbar-collapse {
+    justify-content: start !important;
+  }
+
+  .curved-card {
+    flex: 0 0 280px;
+    height: 380px;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-caption h1 {
+    font-size: 2rem;
+    /* Existing: animation: fadeInUp 1s var(--transition-smooth) 0.3s both; - UNTOUCHED */
+  }
+
+  .carousel-caption p {
+    font-size: 1rem;
+    /* Existing: animation: fadeInUp 1s var(--transition-smooth) 0.6s both; - UNTOUCHED */
+  }
+
+  .carousel-caption {
+    bottom: 10%;
+    left: 5%;
+    right: 5%;
+    text-align: center; /* Centered caption on small screens */
+  }
+
+  .about-section {
+    flex-direction: column;
+    padding: 40px 20px;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+
+  .curved-card {
+    flex: 0 0 260px;
+    height: 360px;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .counter {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .logo-img {
+    width: 80px;
+    height: 60px;
+  }
+
+  .navbar-brand {
+    padding-left: 0;
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .navbar-nav {
+    gap: 10px;
+  }
+
+  .carousel-caption {
+    bottom: 8%;
+    padding: 0 10px;
+  }
+
+  .carousel-caption h1 {
+    font-size: 1.5rem;
+  }
+
+  .carousel-caption p {
+    font-size: 0.9rem;
+  }
+
+  .project-tile img {
+    height: 200px;
+  }
+
+  .btn,
+  .btn-primary {
+    width: 100%;
+    padding: 0.6rem;
+  }
+
+  .curved-card {
+    flex: 0 0 240px;
+    height: 320px;
+  }
+
+  .contact-content {
+    padding: 1rem;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .counter {
+    font-size: 2rem;
+  }
+}
+
+/* ====================================== */
+/* PERFORMANCE OPTIMIZATIONS - UNTOUCHED */
+/* ====================================== */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+/* ====================================== */
+/* ACCESSIBILITY ANIMATIONS - UNTOUCHED */
+/* ====================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ====================================== */
+/* DARK MODE SUPPORT - UNTOUCHED        */
+/* ====================================== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #2a2a2a;
+    --secondary-color: #1a1a1a;
+    --text-color: #e0e0e0;
+  }
+
+  .navbar {
+    background-color: rgba(26, 26, 26, 0.95);
+  }
+
+  .navbar-brand,
+  .navbar-nav .nav-link {
+    color: #e0e0e0;
+  }
+
+  .section-title {
+    color: #e0e0e0;
+  }
+}
+
+/* ====================================== */
+/* CUSTOM SCROLLBAR - UNTOUCHED         */
+/* ====================================== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+}
