@@ -613,14 +613,14 @@ h1, h2, h3 {
   /* Existing: animation: fadeInUp 1s var(--transition-smooth) 0.3s both; - UNTOUCHED */
 }
 
-.section-title {
+.about-section .section-title {
   font-size: 2.2rem;
   font-weight: bold;
   color: #2c3e50;
   position: relative;
 }
 
-.section-title::after {
+.about-section .section-title::after {
   content: '';
   position: absolute;
   bottom: -10px;
@@ -1550,7 +1550,7 @@ footer::before {
     padding: 40px 20px;
   }
 
-  .section-title {
+  .about-section .section-title {
     font-size: 1.6rem;
   }
 
@@ -1672,7 +1672,7 @@ footer::before {
     color: #e0e0e0;
   }
 
-  .section-title {
+  .navbar .section-title {
     color: #e0e0e0;
   }
 }
