@@ -1015,6 +1015,7 @@ h1, h2, h3 {
   overflow: hidden; /* For image border-radius */
   box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Added initial subtle shadow */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
+  padding: 25px 25px 25px 25px;
 }
 /* Team member hover effect */
 .team-section .team-member:hover {

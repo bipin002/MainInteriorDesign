@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
            </div>
           <div class="row align-items-center g-4">
             <div class="col-md-6">
-              <img src="${project.mainImage}" class="main-img img-fluid rounded shadow" alt="${project.title}">
+              <img src="${project.mainImage}" loading="lazy" class="main-img img-fluid rounded shadow" alt="${project.title}">
             </div>
             <div class="col-md-6">
               <p class="project-description text-muted">${project.description}</p>
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <div class="row g-4 gallery-container">
             ${project.images.map(img => `
               <div class="col-md-4">
-                <img src="${img}" class="img-fluid rounded shadow-sm mb-3" alt="">
+                <img src="${img}" loading="lazy" class="img-fluid rounded shadow-sm mb-3" alt="">
               </div>
             `).join('')}
           </div>
