@@ -460,7 +460,9 @@ h1, h2, h3 {
   /* Existing: animation: fadeInUp 0.6s var(--transition-smooth); - UNTOUCHED */
 }
 
-.section-title {
+#curved-carousel-section .section-title ,
+#testimonial-section .section-title
+{
   font-size: 26px;
   margin-bottom: 20px;
   border-bottom: 2px solid var(--accent-color);
@@ -471,7 +473,8 @@ h1, h2, h3 {
   padding-bottom: 5px; /* Added padding for the underline */
 }
 
-.section-title::before {
+#curved-carousel-section .section-title,
+#testimonial-section .section-title::before {
   content: '';
   position: absolute;
   bottom: 0;
