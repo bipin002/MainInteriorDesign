@@ -3,7 +3,7 @@ const projectData = [
   {
     id: "living-room",
     title: "Modern Living Room",
-    mainImage: "assets/images/modern-kitchen-interior-white-colors.jpg",
+    mainImage: "assets/images/modern-kitchen-interior-white-colors.jpg", 
     description: "Minimalist with cozy tones",
     longDescription: "This modern living room design reflects a harmonious blend of functionality and elegance. Using neutral tones and sleek furniture, the space was crafted to evoke both warmth and sophistication. The open layout allows natural light to amplify the design, while carefully selected decor elements add personality.",
     client: "Mr. Sharma",
